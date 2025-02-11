@@ -1,4 +1,4 @@
-FDockerfileROM maven:3.8.4-openjdk-11-slim AS builder
+FROM maven:3.8.4-openjdk-11-slim AS builder
 WORKDIR /app
 COPY . /app
 RUN mvn clean package
