@@ -98,12 +98,15 @@ public class TelegramBot  extends TelegramLongPollingBot {
         } else if (text.startsWith("/my_pets")) {
             String petsList = petService.getPetsList(chatId);
             sendText(chatId, petsList);
-        } else if (text.startsWith("/create ")) {
-            String[] parts = text.split(" ", 2);
-            if (parts.length < 2) {
-                sendText(chatId, "Укажите имя питомца. Например: /create Rex");
+        } else if (text.equals("/create")) {// Проверяем, что команда введена без имени
+            Optional<User> userOpt = userRepository.findByChatId(chatId);
+            if (userOpt.isEmpty()) {
+                sendText(chatId, "Сначала зарегистрируйтесь!");
                 return;
             }
+            sendText(chatId, "Укажите имя питомца. Например: /create Rex");
+        }else if (text.startsWith("/create ")) {
+            String[] parts = text.split(" ", 2);        
             String petName = parts[1];
             String createResult = petService.createPet(chatId, petName);
             sendText(chatId, createResult);
