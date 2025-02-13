@@ -20,12 +20,5 @@ public class BotInitializer {
             }
         };
     }
- @Bean
-    public DefaultBotOptions botOptions() {
-        DefaultBotOptions options = new DefaultBotOptions();
-        options.setGetUpdatesTimeout(20); // Устанавливаем таймаут меньше 30 секунд
-        return options;
-    
-}
 }
 
